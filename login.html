@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>登入</title>
+		<!-- 用用看tailwind -->
+		<script src="https://cdn.tailwindcss.com"></script>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+		/>
+	</head>
+	<style>
+		.form-floating-label {
+			top: 0.3em;
+			left: 1.5rem;
+			line-height: 1;
+
+			transition: all 0.5s;
+			pointer-events: none;
+		}
+
+		.form-floating-input:where(:focus, :valid) ~ .form-floating-label {
+			transform: translate(-10%, -85%);
+			scale: 0.85;
+		}
+
+
+	</style>
+	<body>
+		<div
+			id="app"
+			class="flex justify-center items-center flex-col min-h-screen container px-3 mx-auto"
+		>
+			<h1
+				class="title text-4xl lg:text-5xl font-semibold mb-9 text-center w-full"
+			>
+				請先登入
+			</h1>
+			<form id="loginForm" action="post" class="p-4 w-full lg:[width:640px] mx-auto">
+				<div class="relative mb-5">
+					<input
+						required
+						id="userEmail"
+						type="text"
+						class="form-floating-input border border-gray-500 w-full px-5 py-3 rounded-md"
+						v-model.trim="userInfo.email"
+						@input="clearErrMsg"
+					/>
+					<label
+						for="userEmail"
+						class="form-floating-label text-2xl text-gray-400 absolute bg-white px-2"
+						>Email</label
+					>
+				</div>
+				<div class="relative mb-10">
+					<input
+						required
+						id="userPassword"
+						type="text"
+						class="form-floating-input border border-gray-500 w-full px-5 py-3 rounded-md"
+						v-model.trim="userInfo.password"
+						@input="clearErrMsg"
+					/>
+					<label
+						for="userPassword"
+						class="form-floating-label text-2xl text-gray-400 absolute bg-white px-2"
+						>Password</label
+					>
+				</div>
+				<div class="text-center mb-10">
+					<button
+						type="button"
+						class="w-40 bg-blue-500 hover:bg-blue-400 transition-colors duration-300 text-white px-4 py-2 rounded-md cursor-pointer"
+						@click="login"
+					>
+						登入
+					</button>
+				</div>
+				<div class="status__message">
+					<div class="loader m-auto w-12 aspect-square animate-spin  border-8 border-transparent border-t-slate-400 rounded-full" v-if="onLoading" style="animation-duration: 1.25s;"></div>
+					<p
+						class="text-red-600 text-xl font-semibold text-center"
+						v-if="errMsg"
+					>
+						{{ errMsg }}
+					</p>
+					
+				</div>
+			</form>
+		</div>		
+		<script src="./login.js" type="module"></script>
+	</body>
+</html>
